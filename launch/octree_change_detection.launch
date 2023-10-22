@@ -1,0 +1,16 @@
+<launch>
+    <node name="voxel_grid_filter" pkg="my_pcl_tutorial" type="voxel_grid_filter"  output="screen">
+        <remap from="input" to="velodyne_points"/>
+        <remap from="output" to="filtered_points"/>
+    
+        <param name="leaf_x" value="0.1"/>
+        <param name="leaf_y" value="0.1"/>
+        <param name="leaf_z" value="0.1"/>
+    </node> 
+    <node name="octree_change_detection" pkg="my_pcl_tutorial" type="octree_change_detection"  output="screen">
+        <remap from="input" to="filtered_points"/>
+    
+        <param name="octree_resolution" value="0.5"/>
+    </node>
+
+</launch>

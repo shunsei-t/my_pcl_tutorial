@@ -1,0 +1,13 @@
+<launch>
+
+    <node name="voxel_grid_filter" pkg="my_pcl_tutorial" type="voxel_grid_filter"  output="screen">
+        <remap from="input" to="/depth_camera/point"/>
+
+        <param name="leaf_x" value="0.1"/>
+        <param name="leaf_y" value="0.1"/>
+        <param name="leaf_z" value="0.1"/>
+
+        <remap from="output" to="voxel_grid_points"/>
+    </node>
+
+</launch>

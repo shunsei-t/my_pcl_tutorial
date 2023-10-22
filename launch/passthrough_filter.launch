@@ -1,0 +1,13 @@
+<launch>
+
+    <node name="passthrough_filter" pkg="my_pcl_tutorial" type="passthrough_filter"  output="screen">
+        <remap from="input" to="/depth_camera/point"/>
+
+        <param name="field_name" value="x"/>
+        <param name="upper_limit" value="0.0"/>
+        <param name="lower_limit" value="0.5"/>
+
+        <remap from="output" to="passthrough_points"/>
+    </node>
+
+</launch>
