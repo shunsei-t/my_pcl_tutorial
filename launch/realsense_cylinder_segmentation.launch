@@ -13,9 +13,9 @@
     <node name="voxel_grid_filter" pkg="my_pcl_tutorial" type="voxel_grid_filter_cnvpoint"  output="screen">
         <remap from="input" to="/passthrough_points"/>
 
-        <param name="leaf_x" value="0.01"/>
-        <param name="leaf_y" value="0.01"/>
-        <param name="leaf_z" value="0.01"/>
+        <param name="leaf_x" value="0.005"/>
+        <param name="leaf_y" value="0.005"/>
+        <param name="leaf_z" value="0.005"/>
 
         <remap from="output" to="voxel_grid_points"/>
     </node>
