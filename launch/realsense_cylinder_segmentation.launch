@@ -1,0 +1,49 @@
+<launch>
+
+    <node name="passthrough_filter" pkg="my_pcl_tutorial" type="passthrough_filter"  output="screen">
+        <remap from="input" to="/camera/depth/color/points"/>
+
+        <param name="field_name" value="z"/>
+        <param name="upper_limit" value="0.5"/>
+        <param name="lower_limit" value="0.0"/>
+
+        <remap from="output" to="passthrough_points"/>
+    </node>
+
+    <node name="voxel_grid_filter" pkg="my_pcl_tutorial" type="voxel_grid_filter_cnvpoint"  output="screen">
+        <remap from="input" to="/passthrough_points"/>
+
+        <param name="leaf_x" value="0.01"/>
+        <param name="leaf_y" value="0.01"/>
+        <param name="leaf_z" value="0.01"/>
+
+        <remap from="output" to="voxel_grid_points"/>
+    </node>
+
+    <node name="plane_model_segmentation" pkg="my_pcl_tutorial" type="plane_model_segmentation"  output="screen">
+        <remap from="input" to="/voxel_grid_points"/>
+
+        <param name="k_search" value="30"/>
+        <param name="distance_threshould" value="0.1"/>
+        <param name="normal_distance_weight" value="0.1"/>
+        <param name="max_iterations" value="5000"/>
+        <param name="extract_negative" value="true"/>
+
+        <remap from="output" to="extract_points"/>
+    </node>
+
+    <node name="cylinder_model_segmentation" pkg="my_pcl_tutorial" type="cylinder_model_segmentation"  output="screen">
+        <remap from="input" to="/extract_points"/>
+
+        <param name="k_search" value="30"/>
+        <param name="distance_threshould" value="0.1"/>
+        <param name="normal_distance_weight" value="0.1"/>
+        <param name="max_iterations" value="10000"/>
+        <param name="radius_limit_max" value="0.07"/>
+        <param name="radius_limit_min" value="0.0"/>
+        <param name="extract_negative" value="false"/>
+
+        <remap from="output" to="segment_points"/>
+    </node>
+
+</launch>

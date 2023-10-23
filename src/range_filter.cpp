@@ -8,12 +8,9 @@
 #include <pcl/filters/passthrough.h>
 
 #include <iostream>
-#include <string>
 
 ros::Publisher pub;
-std::string field_name = "x";
-float upper_limit = 0.0;
-float lower_limit = 3.0;
+float range = 30;
 
 void
 cloud_cb (const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud)
@@ -21,13 +18,15 @@ cloud_cb (const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud)
   ros::Time start = ros::Time::now();
 
   pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_filtered (new pcl::PointCloud<pcl::PointXYZ>);
+  cloud_filtered->header = cloud->header;
 
-
-  pcl::PassThrough<pcl::PointXYZ> pass;
-  pass.setInputCloud(cloud);
-  pass.setFilterFieldName(field_name);
-  pass.setFilterLimits(lower_limit, upper_limit);
-  pass.filter(*cloud_filtered);
+  for (const auto point : *cloud){
+    float x = point.x;
+    float y = point.y;
+    if(hypot(x, y) < range){
+      cloud_filtered->push_back(point);
+    }
+  }
 
 
   pub.publish (*cloud_filtered);
@@ -40,13 +39,11 @@ int
 main (int argc, char** argv)
 {
   // Initialize ROS
-  ros::init (argc, argv, "paththrough_filter");
+  ros::init (argc, argv, "range_filter");
   ros::NodeHandle nh;
   ros::NodeHandle pnh("~");
 
-  pnh.getParam("field_name", field_name);
-  pnh.getParam("upper_limit", upper_limit);
-  pnh.getParam("lower_limit", lower_limit);
+  pnh.getParam("range", range);
 
   // Create a ROS subscriber for the input point cloud
   ros::Subscriber sub = nh.subscribe ("input", 1, cloud_cb);

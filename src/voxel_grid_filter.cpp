@@ -12,7 +12,7 @@ static float x = 0.1, y = 0.1, z = 0.1;
 void 
 cloud_cb (const pcl::PCLPointCloud2ConstPtr& cloud)
 {
-  float now = ros::Time::now().toSec();
+  ros::Time start = ros::Time::now();
   // PoincCloud2トピックをpcl::PCLPointCloud2Constとして受け取ることで暗示的に変換している
   pcl::PCLPointCloud2 cloud_filtered;
 
@@ -25,8 +25,8 @@ cloud_cb (const pcl::PCLPointCloud2ConstPtr& cloud)
   // Publish the data
   pub.publish (cloud_filtered);
 
-  float duration = ros::Time::now().toSec() - now;
-  ROS_INFO("Duration %.5f[sec]", duration);
+  ros::Duration duration = ros::Time::now() - start;
+  ROS_INFO("Duration %.5ld[nsec]", duration.toNSec());
 }
 
 int

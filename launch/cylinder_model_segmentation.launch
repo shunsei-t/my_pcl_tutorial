@@ -1,0 +1,17 @@
+<launch>
+
+    <node name="cylinder_model_segmentation" pkg="my_pcl_tutorial" type="cylinder_model_segmentation"  output="screen">
+        <remap from="input" to="/range_points"/>
+
+        <param name="k_search" value="30"/>
+        <param name="distance_threshould" value="0.1"/>
+        <param name="normal_distance_weight" value="0.1"/>
+        <param name="max_iterations" value="500"/>
+        <param name="radius_limit_max" value="0.4"/>
+        <param name="radius_limit_min" value="0.05"/>
+        <param name="extract_negative" value="false"/>
+
+        <remap from="output" to="segment_points"/>
+    </node>
+
+</launch>

@@ -1,0 +1,11 @@
+<launch>
+
+    <node name="range_filter" pkg="my_pcl_tutorial" type="range_filter"  output="screen">
+        <remap from="input" to="/velodyne_points"/>
+
+        <param name="range" value="3.0"/>
+
+        <remap from="output" to="range_points"/>
+    </node>
+
+</launch>

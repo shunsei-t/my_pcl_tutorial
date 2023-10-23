@@ -13,7 +13,7 @@
 ros::Publisher pub_coefficients;
 ros::Publisher pub_output;
 
-void 
+void
 cloud_cb (const sensor_msgs::PointCloud2ConstPtr& input)
 {
   // Convert the sensor_msgs/PointCloud2 data to pcl/PointCloud
@@ -37,7 +37,7 @@ cloud_cb (const sensor_msgs::PointCloud2ConstPtr& input)
   ne.compute (*cloud_normals);
   
   seg.setOptimizeCoefficients (true);
-  seg.setModelType (5);
+  seg.setModelType (pcl::SACMODEL_CYLINDER);
   seg.setMethodType (pcl::SAC_RANSAC);
   seg.setDistanceThreshold (0.1);
   seg.setMaxIterations (1000);

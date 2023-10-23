@@ -1,36 +1,39 @@
 #include <ros/ros.h>
 #include <sensor_msgs/PointCloud2.h>
+
 // PCL specific includes
-#include <pcl_ros/point_cloud.h>
+#include <pcl_conversions/pcl_conversions.h>
 #include <pcl/point_cloud.h>
+// #include <pcl_ros/point_cloud.h>
 #include <pcl/point_types.h>
 
-#include <pcl/filters/passthrough.h>
-
-#include <iostream>
-#include <string>
+#include <pcl/filters/voxel_grid.h>
 
 ros::Publisher pub;
-std::string field_name = "x";
-float upper_limit = 0.0;
-float lower_limit = 3.0;
+static float x = 0.1, y = 0.1, z = 0.1;
 
 void
-cloud_cb (const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud)
+cloud_cb (const sensor_msgs::PointCloud2ConstPtr& cloud_msg)
 {
   ros::Time start = ros::Time::now();
 
+  pcl::PointCloud<pcl::PointXYZ>::Ptr cloud (new pcl::PointCloud<pcl::PointXYZ>);
   pcl::PointCloud<pcl::PointXYZ>::Ptr cloud_filtered (new pcl::PointCloud<pcl::PointXYZ>);
 
-
-  pcl::PassThrough<pcl::PointXYZ> pass;
-  pass.setInputCloud(cloud);
-  pass.setFilterFieldName(field_name);
-  pass.setFilterLimits(lower_limit, upper_limit);
-  pass.filter(*cloud_filtered);
+  pcl::fromROSMsg(*cloud_msg, *cloud);
 
 
-  pub.publish (*cloud_filtered);
+  pcl::VoxelGrid<pcl::PointXYZ> sor;
+  sor.setInputCloud (cloud);
+  sor.setLeafSize (x, y, z);
+  sor.filter(*cloud_filtered);
+
+
+  sensor_msgs::PointCloud2::Ptr output_msg (new sensor_msgs::PointCloud2);
+  pcl::toROSMsg(*cloud_filtered, *output_msg);
+
+  // Publish the data
+  pub.publish (output_msg);
 
   ros::Duration duration = ros::Time::now() - start;
   ROS_INFO("Duration %.5ld[nsec]", duration.toNSec());
@@ -40,13 +43,13 @@ int
 main (int argc, char** argv)
 {
   // Initialize ROS
-  ros::init (argc, argv, "paththrough_filter");
+  ros::init (argc, argv, "voxel_grid_filter");
   ros::NodeHandle nh;
   ros::NodeHandle pnh("~");
 
-  pnh.getParam("field_name", field_name);
-  pnh.getParam("upper_limit", upper_limit);
-  pnh.getParam("lower_limit", lower_limit);
+  pnh.getParam("leaf_x", x);
+  pnh.getParam("leaf_y", y);
+  pnh.getParam("leaf_z", z);
 
   // Create a ROS subscriber for the input point cloud
   ros::Subscriber sub = nh.subscribe ("input", 1, cloud_cb);

@@ -137,9 +137,14 @@ include_directories(
 add_executable(example src/example.cpp)
 add_executable(voxel_grid_filter src/voxel_grid_filter.cpp)
 add_executable(voxel_grid_filter_pcl src/voxel_grid_filter_pcl.cpp)
+add_executable(voxel_grid_filter_point src/voxel_grid_filter_point.cpp)
+add_executable(voxel_grid_filter_cnvpoint src/voxel_grid_filter_cnvpoint.cpp)
 add_executable(planar_model_segmentation_pcl src/planar_model_segmentation_pcl.cpp)
 add_executable(octree_change_detection src/octree_change_detection.cpp)
 add_executable(passthrough_filter src/passthrough_filter.cpp)
+add_executable(range_filter src/range_filter.cpp)
+add_executable(cylinder_model_segmentation src/cylinder_model_segmentation.cpp)
+add_executable(plane_model_segmentation src/plane_model_segmentation.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -161,6 +166,12 @@ target_link_libraries(voxel_grid_filter
 target_link_libraries(voxel_grid_filter_pcl
   ${catkin_LIBRARIES}
 )
+target_link_libraries(voxel_grid_filter_point
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(voxel_grid_filter_cnvpoint
+  ${catkin_LIBRARIES}
+)
 target_link_libraries(planar_model_segmentation_pcl
   ${catkin_LIBRARIES}
 )
@@ -168,6 +179,15 @@ target_link_libraries(octree_change_detection
   ${catkin_LIBRARIES}
 )
 target_link_libraries(passthrough_filter
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(range_filter
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(cylinder_model_segmentation
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(plane_model_segmentation
   ${catkin_LIBRARIES}
 )
 
