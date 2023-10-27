@@ -1,3 +1,29 @@
+# Intelisense setting
+c_cpp_properties.json
+```
+{
+    "configurations": [
+        {
+            "browse": {
+                "databaseFilename": "",
+                "limitSymbolsToIncludedHeaders": true
+            },
+            "includePath": [
+                "/mnt/d/catkin_ws/devel/include/**",
+                "/opt/ros/noetic/include/**",
+                "/usr/include/**"
+            ],
+            "name": "ROS",
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}
+```
+
 # What is this?
 Point Cloud LibraryのチュートリアルをROSで実装していったもの。
 # Filters
