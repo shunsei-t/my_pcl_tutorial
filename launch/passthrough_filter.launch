@@ -1,13 +1,19 @@
 <launch>
 
+    <arg name="input" default="/velodeyn_points"/>
+    <arg name="output" default="/range_filtered_points"/>
+    <arg name="field_name" default="x"/>
+    <arg name="upper_limit" default="10.0"/>
+    <arg name="lower_limit" default="0.0"/>
+
     <node name="passthrough_filter" pkg="my_pcl_tutorial" type="passthrough_filter"  output="screen">
-        <remap from="input" to="/velodyne_points"/>
+        <remap from="input" to="$(arg input)"/>
 
-        <param name="field_name" value="x"/>
-        <param name="upper_limit" value="10.0"/>
-        <param name="lower_limit" value="0.0"/>
+        <param name="field_name" value="$(arg field_name)"/>
+        <param name="upper_limit" value="$(arg upper_limit)"/>
+        <param name="lower_limit" value="$(arg lower_limit)"/>
 
-        <remap from="output" to="passthrough_points"/>
+        <remap from="output" to="$(arg output)"/>
     </node>
 
 </launch>

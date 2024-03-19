@@ -1,13 +1,19 @@
 <launch>
 
+    <arg name="input" default="/velodeyn_points"/>
+    <arg name="output" default="/range_filtered_points"/>
+    <arg name="leaf_x" default="0.5"/>
+    <arg name="leaf_y" default="0.5"/>
+    <arg name="leaf_z" default="0.5"/>
+
     <node name="voxel_grid_filter" pkg="my_pcl_tutorial" type="voxel_grid_filter_cnvpoint"  output="screen">
-        <remap from="input" to="/velodyne_points"/>
+        <remap from="input" to="$(arg input)"/>
 
-        <param name="leaf_x" value="0.5"/>
-        <param name="leaf_y" value="0.5"/>
-        <param name="leaf_z" value="0.5"/>
+        <param name="leaf_x" value="$(arg leaf_x)"/>
+        <param name="leaf_y" value="$(arg leaf_y)"/>
+        <param name="leaf_z" value="$(arg leaf_z)"/>
 
-        <remap from="output" to="voxel_grid_points"/>
+        <remap from="output" to="$(arg output)"/>
     </node>
 
 </launch>

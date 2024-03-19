@@ -1,12 +1,16 @@
 <launch>
+    <arg name="input" default="/velodeyn_points"/>
+    <arg name="output" default="/range_filtered_points"/>
+    <arg name="range_min" default="0.5"/>
+    <arg name="range_max" default="40.0"/>
 
     <node name="range_filter" pkg="my_pcl_tutorial" type="range_filter"  output="screen">
-        <remap from="input" to="/velodyne_points"/>
+        <remap from="input" to="$(arg input)"/>
 
-        <param name="range_min" value="0.5"/>
-        <param name="range_max" value="40.0"/>
+        <param name="range_min" value="$(arg range_min)"/>
+        <param name="range_max" value="$(arg range_max)"/>
 
-        <remap from="output" to="range_points"/>
+        <remap from="output" to="$(arg output)"/>
     </node>
 
 </launch>
