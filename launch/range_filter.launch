@@ -3,7 +3,8 @@
     <node name="range_filter" pkg="my_pcl_tutorial" type="range_filter"  output="screen">
         <remap from="input" to="/velodyne_points"/>
 
-        <param name="range" value="3.0"/>
+        <param name="range_min" value="0.5"/>
+        <param name="range_max" value="40.0"/>
 
         <remap from="output" to="range_points"/>
     </node>

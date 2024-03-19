@@ -10,7 +10,8 @@
 #include <iostream>
 
 ros::Publisher pub;
-float range = 30;
+float range_min = 0.0;
+float range_max = 30.0;
 
 void
 cloud_cb (const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud)
@@ -23,7 +24,7 @@ cloud_cb (const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud)
   for (const auto point : *cloud){
     float x = point.x;
     float y = point.y;
-    if(hypot(x, y) < range){
+    if((hypot(x, y) > range_min) && (hypot(x, y) < range_max)){
       cloud_filtered->push_back(point);
     }
   }
@@ -43,7 +44,8 @@ main (int argc, char** argv)
   ros::NodeHandle nh;
   ros::NodeHandle pnh("~");
 
-  pnh.getParam("range", range);
+  pnh.getParam("range_min", range_min);
+  pnh.getParam("range_max", range_max);
 
   // Create a ROS subscriber for the input point cloud
   ros::Subscriber sub = nh.subscribe ("input", 1, cloud_cb);
