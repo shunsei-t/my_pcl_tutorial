@@ -1,0 +1,17 @@
+<launch>
+
+    <arg name="input" default="/velodeyn_points"/>
+    <arg name="output" default="/range_filtered_points"/>
+    <arg name="mean_k" default="10"/>
+    <arg name="thresh" default="0.5"/>
+
+    <node name="statical_outlier_filter" pkg="my_pcl_tutorial" type="statical_outlier_filter"  output="screen">
+        <remap from="input" to="$(arg input)"/>
+
+        <param name="mean_k" value="$(arg mean_k)"/>
+        <param name="thresh" value="$(arg thresh)"/>
+
+        <remap from="output" to="$(arg output)"/>
+    </node>
+
+</launch>

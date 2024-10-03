@@ -22,6 +22,16 @@ c_cpp_properties.json
     ],
     "version": 4
 }
+
+```
+# build
+
+```
+catkin build -DCMAKE_BUILD_TYPE=Release my_pcl_tutorial
+```
+
+```
+catkin build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS_RELEASE="-O3 -march=native -flto -fomit-frame-pointer -funroll-loops" my_pcl_tutorial
 ```
 
 # What is this?

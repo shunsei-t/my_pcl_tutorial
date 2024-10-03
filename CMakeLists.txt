@@ -145,6 +145,9 @@ add_executable(passthrough_filter src/passthrough_filter.cpp)
 add_executable(range_filter src/range_filter.cpp)
 add_executable(cylinder_model_segmentation src/cylinder_model_segmentation.cpp)
 add_executable(plane_model_segmentation src/plane_model_segmentation.cpp)
+add_executable(statical_outlier_filter src/statical_outlier_filter.cpp)
+add_executable(get_cog src/get_cog.cpp)
+add_executable(radius_outlier_filter src/radius_outlier_filter.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -188,6 +191,15 @@ target_link_libraries(cylinder_model_segmentation
   ${catkin_LIBRARIES}
 )
 target_link_libraries(plane_model_segmentation
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(statical_outlier_filter
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(get_cog
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(radius_outlier_filter
   ${catkin_LIBRARIES}
 )
 
