@@ -1,0 +1,17 @@
+<launch>
+
+    <arg name="input" default="/velodeyn_points"/>
+    <arg name="output" default="/radius_filtered_points"/>
+    <arg name="radius" default="10"/>
+    <arg name="neighbors" default="0.5"/>
+
+    <node name="radius_outlier_filter" pkg="my_pcl_tutorial" type="radius_outlier_filter"  output="screen">
+        <remap from="input" to="$(arg input)"/>
+
+        <param name="radius" value="$(arg radius)"/>
+        <param name="neighbors" value="$(arg neighbors)"/>
+
+        <remap from="output" to="$(arg output)"/>
+    </node>
+
+</launch>

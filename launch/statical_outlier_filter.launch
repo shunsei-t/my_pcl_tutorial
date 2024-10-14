@@ -1,7 +1,7 @@
 <launch>
 
     <arg name="input" default="/velodeyn_points"/>
-    <arg name="output" default="/range_filtered_points"/>
+    <arg name="output" default="/statical_filtered_points"/>
     <arg name="mean_k" default="10"/>
     <arg name="thresh" default="0.5"/>
 

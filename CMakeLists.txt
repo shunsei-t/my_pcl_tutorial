@@ -142,6 +142,7 @@ add_executable(voxel_grid_filter_cnvpoint src/voxel_grid_filter_cnvpoint.cpp)
 add_executable(planar_model_segmentation_pcl src/planar_model_segmentation_pcl.cpp)
 add_executable(octree_change_detection src/octree_change_detection.cpp)
 add_executable(passthrough_filter src/passthrough_filter.cpp)
+add_executable(passthrough_filter2 src/passthrough_filter2.cpp)
 add_executable(range_filter src/range_filter.cpp)
 add_executable(cylinder_model_segmentation src/cylinder_model_segmentation.cpp)
 add_executable(plane_model_segmentation src/plane_model_segmentation.cpp)
@@ -182,6 +183,9 @@ target_link_libraries(octree_change_detection
   ${catkin_LIBRARIES}
 )
 target_link_libraries(passthrough_filter
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(passthrough_filter2
   ${catkin_LIBRARIES}
 )
 target_link_libraries(range_filter

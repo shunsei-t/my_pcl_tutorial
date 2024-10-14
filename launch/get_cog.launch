@@ -1,0 +1,11 @@
+<launch>
+
+    <arg name="input" default="/velodeyn_points"/>
+    <arg name="output" default="/COG"/>
+
+    <node name="get_cog" pkg="my_pcl_tutorial" type="get_cog_cnvpoint"  output="screen">
+        <remap from="input" to="$(arg input)"/>
+        <remap from="output" to="$(arg output)"/>
+    </node>
+
+</launch>

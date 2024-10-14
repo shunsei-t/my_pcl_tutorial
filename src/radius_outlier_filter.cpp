@@ -33,7 +33,7 @@ cloud_cb (const pcl::PointCloud<pcl::PointXYZ>::ConstPtr& cloud)
   pub.publish (*cloud_filtered);
 
   ros::Duration duration = ros::Time::now() - start;
-  ROS_INFO("Duration %.5ld[nsec]", duration.toNSec());
+  ROS_INFO("Duration %.5f[sec]", duration.toSec());
 }
 
 int
